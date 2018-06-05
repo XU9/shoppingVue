@@ -32,22 +32,65 @@
       <div class="ad-banner">
           <img v-lazy="adBanner.PICTURE_ADDRESS" width="100%">
       </div>
+      <!--Recommend goods area-->
+      <div class="recommend-area">
+          <div class="recommend-title">
+              商品推荐
+          </div>
+          <div class="recommend-body">
+              <!--swiper-->
+              <swiper :options="swiperOption">
+                  <swiper-slide v-for=" (item ,index) in recommendGoods" :key="index">
+                      <div class="recommend-item">
+                          
+                              <img :src="item.image" width="80%" />
+                              <div>{{item.goodsName}}</div>
+                              <div>￥{{item.price}} (￥{{item.mallPrice}})</div>
+                              
+                      </div>
+                  </swiper-slide>
+              </swiper>
+          </div>
+      </div>
+      <!-- // 引入swiperDefault  -->
+      <swiperDefault></swiperDefault>
+      <swiperDefault2></swiperDefault2>
+      <swiperDefault3></swiperDefault3>
+      <swiperText></swiperText>
+
     </div>
 </template>
 
 <script>
 import axiso from "axios";
+import "swiper/dist/css/swiper.css";
+import { swiper, swiperSlide } from "vue-awesome-swiper";
+import swiperDefault from "../swiper/swiperDefault";
+import swiperDefault2 from "../swiper/swiperDefault2";
+import swiperDefault3 from "../swiper/swiperDefault3";
+import swiperText from "../swiper/swiperText";
 export default {
   data() {
     return {
+      swiperOption: {
+        slidesPerView: 3
+      },
       msg: "shopping Mall",
       locationIcon: require("../../assets/images/location.png"),
-      bannerPicArray: [ ],
+      bannerPicArray: [],
       category: [],
-      adBanner: ""
+      adBanner: "",
+      recommendGoods: []
     };
   },
-
+  components: {
+    swiper,
+    swiperSlide,
+    swiperDefault,
+    swiperDefault2,
+    swiperDefault3,
+    swiperText
+  },
   created() {
     axiso({
       url: "https://easy-mock.com/mock/5b128ccb791ed91ba99b1143/SmileVue/index",
@@ -58,7 +101,8 @@ export default {
         if (response.status == 200) {
           this.category = response.data.data.category;
           this.adBanner = response.data.data.advertesPicture;
-          this.bannerPicArray = response.data.data.slides
+          this.bannerPicArray = response.data.data.slides;
+          this.recommendGoods = response.data.data.recommend; //推荐商品
         }
       })
       .catch(error => {
@@ -103,6 +147,26 @@ export default {
 }
 .type-bar div {
   padding: 0.3rem;
+  font-size: 12px;
+  text-align: center;
+}
+.recommend-area {
+  background-color: #fff;
+  margin-top: 0.3rem;
+}
+.recommend-title {
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  padding: 0.2rem;
+  color: #e5017d;
+}
+.recommend-body {
+  border-bottom: 1px solid #eee;
+}
+
+.recommend-item {
+  width: 99%;
+  border-right: 1px solid #eee;
   font-size: 12px;
   text-align: center;
 }

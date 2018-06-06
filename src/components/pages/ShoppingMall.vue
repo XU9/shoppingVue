@@ -53,8 +53,9 @@
           </div>
       </div>
       <!--floor one area-->
-      <div>一楼</div>
-      <floorComponent :floorData="floor1"></floorComponent>
+      <floorComponent :floorData="floor1" :floorTitle="floorName.floor1"></floorComponent>
+      <floorComponent :floorData="floor2" :floorTitle="floorName.floor2"></floorComponent>
+      <floorComponent :floorData="floor3" :floorTitle="floorName.floor3"></floorComponent>
       
     </div>
 </template>
@@ -63,7 +64,7 @@
 import axiso from "axios";
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
-import floorComponent from '../component/floorComponent'
+import floorComponent from "../component/floorComponent";
 export default {
   data() {
     return {
@@ -77,6 +78,9 @@ export default {
       adBanner: "",
       recommendGoods: [],
       floor1: [], //楼层1数据
+      floor2: [], //楼层1的数据
+      floor3: [], //楼层1的数据
+      floorName: {} //楼层名称
     };
   },
   components: {
@@ -97,7 +101,9 @@ export default {
           this.bannerPicArray = response.data.data.slides;
           this.recommendGoods = response.data.data.recommend; //推荐商品
           this.floor1 = response.data.data.floor1; //楼层1数据
-    
+          this.floor2 = response.data.data.floor2; //楼层2数据
+          this.floor3 = response.data.data.floor3; //楼层3数据
+          this.floorName = response.data.data.floorName;
         }
       })
       .catch(error => {
@@ -165,6 +171,4 @@ export default {
   font-size: 12px;
   text-align: center;
 }
-
-
 </style>

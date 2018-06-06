@@ -52,12 +52,10 @@
               </swiper>
           </div>
       </div>
-      <!-- // 引入swiperDefault  -->
-      <swiperDefault></swiperDefault>
-      <swiperDefault2></swiperDefault2>
-      <swiperDefault3></swiperDefault3>
-      <swiperText></swiperText>
-
+      <!--floor one area-->
+      <div>一楼</div>
+      <floorComponent :floorData="floor1"></floorComponent>
+      
     </div>
 </template>
 
@@ -65,10 +63,7 @@
 import axiso from "axios";
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
-import swiperDefault from "../swiper/swiperDefault";
-import swiperDefault2 from "../swiper/swiperDefault2";
-import swiperDefault3 from "../swiper/swiperDefault3";
-import swiperText from "../swiper/swiperText";
+import floorComponent from '../component/floorComponent'
 export default {
   data() {
     return {
@@ -80,16 +75,14 @@ export default {
       bannerPicArray: [],
       category: [],
       adBanner: "",
-      recommendGoods: []
+      recommendGoods: [],
+      floor1: [], //楼层1数据
     };
   },
   components: {
     swiper,
     swiperSlide,
-    swiperDefault,
-    swiperDefault2,
-    swiperDefault3,
-    swiperText
+    floorComponent
   },
   created() {
     axiso({
@@ -103,6 +96,8 @@ export default {
           this.adBanner = response.data.data.advertesPicture;
           this.bannerPicArray = response.data.data.slides;
           this.recommendGoods = response.data.data.recommend; //推荐商品
+          this.floor1 = response.data.data.floor1; //楼层1数据
+    
         }
       })
       .catch(error => {
@@ -170,4 +165,6 @@ export default {
   font-size: 12px;
   text-align: center;
 }
+
+
 </style>

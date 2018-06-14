@@ -80,7 +80,8 @@ import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import floorComponent from "../component/floorComponent";
 import { toMoney } from "@/filter/moneyFilter.js";
-import goodsInfo from '../component/goodsInfoComponent'
+import goodsInfo from '../component/goodsInfoComponent';
+import url from '@/serviceAPI.config.js';
 export default {
   data() {
     return {
@@ -114,7 +115,7 @@ export default {
   },
   created() {
     axiso({
-      url: "https://easy-mock.com/mock/5b128ccb791ed91ba99b1143/SmileVue/index",
+      url: url.getShoppingMallInfo,
       method: "get"
     })
       .then(response => {
